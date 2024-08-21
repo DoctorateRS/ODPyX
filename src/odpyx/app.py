@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 
 @app.errorhandler(404)
-def fallback(e) -> Any:
+def fallback(_) -> Any:
     return {
         "playerDataDelta": {
             "modified": {},

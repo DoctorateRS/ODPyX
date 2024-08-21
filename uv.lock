@@ -156,10 +156,10 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "flask", specifier = ">=3.0.3" },
+    { name = "flask", specifier = ">=3.0" },
     { name = "msgspec", specifier = ">=0.18.6" },
-    { name = "pycryptodome", specifier = ">=3.20.0" },
-    { name = "requests", specifier = ">=2.32.3" },
+    { name = "pycryptodome", specifier = ">=3.20" },
+    { name = "requests", specifier = ">=2.32" },
 ]
 
 [[package]]

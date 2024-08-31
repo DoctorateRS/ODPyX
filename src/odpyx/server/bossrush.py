@@ -49,7 +49,9 @@ def bossRushRelicSelect():
 
     data = {
         "playerDataDelta": {
-            "modified": {"activity": {"BOSS_RUSH": {activityId: {"relic": {"select": relicId}}}}},
+            "modified": {
+                "activity": {"BOSS_RUSH": {activityId: {"relic": {"select": relicId}}}}
+            },
             "deleted": {},
         }
     }

@@ -1,4 +1,3 @@
-
 from typing import Any
 from .json import JsonUtils, read_json, write_json
 from .crypto import decrypt_battle_data
@@ -6,6 +5,7 @@ from .time import time
 
 from os import path as ospath, makedirs
 from requests import get
+
 
 def update_data(url: str) -> Any:
     BASE_URL_LIST = [

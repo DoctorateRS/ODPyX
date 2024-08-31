@@ -12,13 +12,17 @@ from threading import Thread, Event, Lock
 from ..const import CONFIG_PATH
 from .util import read_json, write_json
 
-header = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.53"}
+header = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.53"
+}
 MODS_LIST = {"mods": [], "name": [], "path": [], "download": []}
+
 
 def writeLog(data):
     time = datetime.now().strftime("%d/%b/%Y %H:%M:%S")
     clientIp = socket.gethostbyname(socket.gethostname())
     print(f"{clientIp} - - [{time}] {data}")
+
 
 def getFile(assetsHash, fileName):
     global MODS_LIST
@@ -42,17 +46,23 @@ def getFile(assetsHash, fileName):
             match mode:
                 case "cn":
                     return redirect(
-                        "https://ak.hycdn.cn/assetbundle/official/Android/assets/{}/{}".format(version, fileName),
+                        "https://ak.hycdn.cn/assetbundle/official/Android/assets/{}/{}".format(
+                            version, fileName
+                        ),
                         302,
                     )
                 case "global":
                     return redirect(
-                        "https://ark-us-static-online.yo-star.com/assetbundle/official/Android/assets/{}/{}".format(version, fileName),
+                        "https://ark-us-static-online.yo-star.com/assetbundle/official/Android/assets/{}/{}".format(
+                            version, fileName
+                        ),
                         302,
                     )
                 case _:
                     return redirect(
-                        "https://ak.hycdn.cn/assetbundle/official/Android/assets/{}/{}".format(version, fileName),
+                        "https://ak.hycdn.cn/assetbundle/official/Android/assets/{}/{}".format(
+                            version, fileName
+                        ),
                         302,
                     )
 
@@ -84,7 +94,9 @@ def getFile(assetsHash, fileName):
 
     if mode == "cn":
         return export(
-            "https://ak.hycdn.cn/assetbundle/official/Android/assets/{}/{}".format(version, fileName),
+            "https://ak.hycdn.cn/assetbundle/official/Android/assets/{}/{}".format(
+                version, fileName
+            ),
             basePath,
             fileName,
             filePath,
@@ -93,7 +105,9 @@ def getFile(assetsHash, fileName):
         )
     elif mode == "global":
         return export(
-            "https://ark-us-static-online.yo-star.com/assetbundle/official/Android/assets/{}/{}".format(version, fileName),
+            "https://ark-us-static-online.yo-star.com/assetbundle/official/Android/assets/{}/{}".format(
+                version, fileName
+            ),
             basePath,
             fileName,
             filePath,
@@ -103,8 +117,10 @@ def getFile(assetsHash, fileName):
 
     return {}
 
+
 downloading_files = {}
 downloading_files_lock = Lock()
+
 
 def downloadFile(url, filePath):
     writeLog("\033[1;33mDownload {}\033[0;0m".format(os.path.basename(filePath)))
@@ -113,6 +129,7 @@ def downloadFile(url, filePath):
     with open(filePath, "wb") as f:
         for chunk in file.iter_content(chunk_size=4096):
             f.write(chunk)
+
 
 def export(url, basePath, fileName, filePath, assetsHash, redownload=False):
     server_config = read_json(CONFIG_PATH)

@@ -39,7 +39,10 @@ def rlv2GiveUpGame():
 
 def getChars(use_user_defaults=False):
     user_data = read_json(USER_JSON_PATH)
-    chars = [user_data["user"]["troop"]["chars"][i] for i in user_data["user"]["troop"]["chars"]]
+    chars = [
+        user_data["user"]["troop"]["chars"][i]
+        for i in user_data["user"]["troop"]["chars"]
+    ]
     if use_user_defaults:
         rlv2_user_settings = read_json(RLV2_USER_SETTINGS_PATH)
         initialChars = set(rlv2_user_settings["initialChars"])
@@ -191,7 +194,10 @@ def rlv2CreateGame():
                     "content": {
                         "initRelic": {
                             "step": [1, 3],
-                            "items": {str(i): {"id": band, "count": 1} for i, band in enumerate(bands)},
+                            "items": {
+                                str(i): {"id": band, "count": 1}
+                                for i, band in enumerate(bands)
+                            },
                         }
                     },
                 },
@@ -390,7 +396,9 @@ def rlv2ChooseInitialRecruitSet():
         for i in range(3):
             ticket_id = getNextTicketIndex(rlv2)
             addTicket(rlv2, ticket_id)
-            rlv2["player"]["pending"][0]["content"]["initRecruit"]["tickets"].append(ticket_id)
+            rlv2["player"]["pending"][0]["content"]["initRecruit"]["tickets"].append(
+                ticket_id
+            )
 
     write_json(rlv2, RLV2_JSON_PATH)
 
@@ -1507,9 +1515,17 @@ def rlv2MoveAndBattleStart():
         case "rogue_1":
             box_info = {}
         case "rogue_2":
-            box_info = {random.choice(["trap_065_normbox", "trap_066_rarebox", "trap_068_badbox"]): 100}
+            box_info = {
+                random.choice(
+                    ["trap_065_normbox", "trap_066_rarebox", "trap_068_badbox"]
+                ): 100
+            }
         case "rogue_3":
-            box_info = {random.choice(["trap_108_smbox", "trap_109_smrbox", "trap_110_smbbox"]): 100}
+            box_info = {
+                random.choice(
+                    ["trap_108_smbox", "trap_109_smrbox", "trap_110_smbbox"]
+                ): 100
+            }
         case "rogue_4":
             box_info = {}
         case _:
@@ -1518,7 +1534,11 @@ def rlv2MoveAndBattleStart():
     if theme == "rogue_2":
         dice_upgrade_count = 0
         band = rlv2["inventory"]["relic"]["r_0"]["id"]
-        if band == "rogue_2_band_16" or band == "rogue_2_band_17" or band == "rogue_2_band_18":
+        if (
+            band == "rogue_2_band_16"
+            or band == "rogue_2_band_17"
+            or band == "rogue_2_band_18"
+        ):
             dice_upgrade_count += 1
         for i in rlv2["inventory"]["relic"]:
             if rlv2["inventory"]["relic"][i]["id"] == "rogue_2_relic_grace_63":
@@ -1719,7 +1739,9 @@ def getGoods(theme):
         )
         i += 1
     for j in rlv2_table["details"][theme]["difficultyUpgradeRelicGroups"]:
-        for k in rlv2_table["details"][theme]["difficultyUpgradeRelicGroups"][j]["relicData"]:
+        for k in rlv2_table["details"][theme]["difficultyUpgradeRelicGroups"][j][
+            "relicData"
+        ]:
             goods.append(
                 {
                     "index": str(i),

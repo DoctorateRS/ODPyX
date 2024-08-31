@@ -36,8 +36,12 @@ def charBuildSetCharVoiceLan():
 
     saved_data = read_json(USER_JSON_PATH)
     for character in request_data["charList"]:
-        saved_data["user"]["troop"]["chars"][str(character)]["voiceLan"] = request_data["voiceLan"]
-        data["playerDataDelta"]["modified"]["troop"]["chars"].update({str(character): {"voiceLan": request_data["voiceLan"]}})
+        saved_data["user"]["troop"]["chars"][str(character)]["voiceLan"] = request_data[
+            "voiceLan"
+        ]
+        data["playerDataDelta"]["modified"]["troop"]["chars"].update(
+            {str(character): {"voiceLan": request_data["voiceLan"]}}
+        )
 
     write_json(saved_data, USER_JSON_PATH)
 
@@ -52,9 +56,13 @@ def charBuildSetDefaultSkill():
 
     saved_data = read_json(USER_JSON_PATH)
 
-    data["playerDataDelta"]["modified"]["troop"]["chars"].update({str(charInstId): {"defaultSkillIndex": defaultSkillIndex}})
+    data["playerDataDelta"]["modified"]["troop"]["chars"].update(
+        {str(charInstId): {"defaultSkillIndex": defaultSkillIndex}}
+    )
 
-    saved_data["user"]["troop"]["chars"][str(charInstId)]["defaultSkillIndex"] = defaultSkillIndex
+    saved_data["user"]["troop"]["chars"][str(charInstId)]["defaultSkillIndex"] = (
+        defaultSkillIndex
+    )
     write_json(saved_data, USER_JSON_PATH)
 
     return data
@@ -67,7 +75,9 @@ def charBuildChangeCharSkin():
     data = {"playerDataDelta": {"modified": {"troop": {"chars": {}}}, "deleted": {}}}
 
     saved_data = read_json(USER_JSON_PATH)
-    data["playerDataDelta"]["modified"]["troop"]["chars"].update({str(charInstId): {"skin": skinId}})
+    data["playerDataDelta"]["modified"]["troop"]["chars"].update(
+        {str(charInstId): {"skin": skinId}}
+    )
 
     saved_data["user"]["troop"]["chars"][str(charInstId)]["skin"] = skinId
     write_json(saved_data, USER_JSON_PATH)
@@ -82,7 +92,9 @@ def charBuildSetEquipment():
     data = {"playerDataDelta": {"modified": {"troop": {"chars": {}}}, "deleted": {}}}
 
     saved_data = read_json(USER_JSON_PATH)
-    data["playerDataDelta"]["modified"].update({"troop": {"chars": {str(charInstId): {"currentEquip": equipId}}}})
+    data["playerDataDelta"]["modified"].update(
+        {"troop": {"chars": {str(charInstId): {"currentEquip": equipId}}}}
+    )
 
     saved_data["user"]["troop"]["chars"][str(charInstId)]["currentEquip"] = equipId
     write_json(saved_data, USER_JSON_PATH)
@@ -95,13 +107,23 @@ def charBuildChangeCharTemplate():
 
     data = {
         "playerDataDelta": {
-            "modified": {"troop": {"chars": {str(request_data["charInstId"]): {"currentTmpl": request_data["templateId"]}}}},
+            "modified": {
+                "troop": {
+                    "chars": {
+                        str(request_data["charInstId"]): {
+                            "currentTmpl": request_data["templateId"]
+                        }
+                    }
+                }
+            },
             "deleted": {},
         }
     }
 
     saved_data = read_json(USER_JSON_PATH)
-    saved_data["user"]["troop"]["chars"][str(request_data["charInstId"])]["currentTmpl"] = request_data["templateId"]
+    saved_data["user"]["troop"]["chars"][str(request_data["charInstId"])][
+        "currentTmpl"
+    ] = request_data["templateId"]
     write_json(saved_data, USER_JSON_PATH)
 
     return data

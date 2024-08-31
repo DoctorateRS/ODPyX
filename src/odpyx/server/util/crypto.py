@@ -7,6 +7,7 @@ from .json import JsonUtils
 
 KEY = "pM6Umv*^hVQuB6t&"
 
+
 def decrypt_battle_data(data: str, login: int = 1672502400) -> Any:
     battle_data = bytes.fromhex(data[: len(data) - 32])
     src = KEY + str(login)

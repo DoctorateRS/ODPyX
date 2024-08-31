@@ -3,6 +3,7 @@ from flask import request
 from .util import read_json, write_json, update_data
 from ..const import BUILDING_JSON_PATH, USER_JSON_PATH, BUILDING_TABLE_URL
 
+
 def updateBuildingCharInstIdList(building_data):
     for i in building_data["chars"]:
         building_data["chars"][i]["roomSlotId"] = ""
@@ -14,6 +15,7 @@ def updateBuildingCharInstIdList(building_data):
             k = str(k)
             building_data["chars"][k]["roomSlotId"] = i
             building_data["chars"][k]["index"] = j
+
 
 def buildingSync():
     building_data = read_json(BUILDING_JSON_PATH)
@@ -37,29 +39,23 @@ def buildingSync():
     building_table = update_data(BUILDING_TABLE_URL)
 
     furniture = {
-        i: {
-            "count": 9999,
-            "inUse": 0
-        } for i in building_table["customData"]["furnitures"]
+        i: {"count": 9999, "inUse": 0}
+        for i in building_table["customData"]["furnitures"]
     }
 
     building_data["furniture"] = furniture
     write_json(building_data, BUILDING_JSON_PATH)
 
-    return {
-        "playerDataDelta": {
-            "modified": {
-                "building": building_data
-            },
-            "deleted": {}
-        }
-    }
+    return {"playerDataDelta": {"modified": {"building": building_data}, "deleted": {}}}
+
 
 def building_getRecentVisitors():
     return {"visitors": []}
 
+
 def building_getInfoShareVisitorsNum():
     return {"num": 0}
+
 
 def building_changeDiySolution():
     request_data = request.get_json()
@@ -70,14 +66,8 @@ def building_changeDiySolution():
     building_data["rooms"]["DORMITORY"][roomSlotId]["diySolution"] = diySolution
     write_json(building_data, BUILDING_JSON_PATH)
 
-    return {
-        "playerDataDelta": {
-            "modified": {
-                "building": building_data
-            },
-            "deleted": {}
-        }
-    }
+    return {"playerDataDelta": {"modified": {"building": building_data}, "deleted": {}}}
+
 
 def building_assignChar():
     request_data = request.get_json()
@@ -98,14 +88,8 @@ def building_assignChar():
     updateBuildingCharInstIdList(building_data)
     write_json(building_data, BUILDING_JSON_PATH)
 
-    return {
-        "playerDataDelta": {
-            "modified": {
-                "building": building_data
-            },
-            "deleted": {}
-        }
-    }
+    return {"playerDataDelta": {"modified": {"building": building_data}, "deleted": {}}}
+
 
 def building_setBuildingAssist():
     request_data = request.get_json()
@@ -114,20 +98,8 @@ def building_setBuildingAssist():
     building_data["assist"][request_data["type"]] = request_data["charInstId"]
     write_json(building_data, BUILDING_JSON_PATH)
 
-    return {
-        "playerDataDelta": {
-            "modified": {
-                "building": building_data
-            },
-            "deleted": {}
-        }
-    }
+    return {"playerDataDelta": {"modified": {"building": building_data}, "deleted": {}}}
+
 
 def building_getAssistReport():
-    return {
-        "reports": [],
-        "playerDataDelta": {
-            "modified": {},
-            "deleted": {}
-        }
-    }
+    return {"reports": [], "playerDataDelta": {"modified": {}, "deleted": {}}}

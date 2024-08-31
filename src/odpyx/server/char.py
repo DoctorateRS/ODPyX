@@ -19,8 +19,12 @@ def charChangeMarkStar():
                 index_list.append(character_index)
 
         for index in index_list:
-            saved_data["user"]["troop"]["chars"][index]["starMark"] = request_data[character]
-            data["playerDataDelta"]["modified"]["troop"]["chars"].update({index: {"starMark": request_data[character]}})
+            saved_data["user"]["troop"]["chars"][index]["starMark"] = request_data[
+                character
+            ]
+            data["playerDataDelta"]["modified"]["troop"]["chars"].update(
+                {index: {"starMark": request_data[character]}}
+            )
 
     write_json(saved_data, USER_JSON_PATH)
 

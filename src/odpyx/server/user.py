@@ -6,14 +6,10 @@ from ..const import USER_JSON_PATH, RLV2_JSON_PATH, SANDBOX_JSON_PATH, CONFIG_PA
 from .util import read_json, write_json, JsonUtils, time
 from .sandbox import addEnemyRush
 
+
 def userCheckIn():
-    return {
-        "result": 0,
-        "playerDataDelta": {
-            "modified": {},
-            "deleted": {}
-        }
-    }
+    return {"result": 0, "playerDataDelta": {"modified": {}, "deleted": {}}}
+
 
 def userChangeSecretary():
     config = read_json(CONFIG_PATH)
@@ -118,7 +114,9 @@ def userChangeAvatar():
     saved_data["user"]["status"]["avatar"] = avatar
     write_json(saved_data, USER_JSON_PATH)
 
-    data = {"playerDataDelta": {"deleted": {}, "modified": {"status": {"avatar": avatar}}}}
+    data = {
+        "playerDataDelta": {"deleted": {}, "modified": {"status": {"avatar": avatar}}}
+    }
 
     return data
 
@@ -278,7 +276,11 @@ def social_getSortListInfo():
                     if len(command_parts) > 3:
                         char_buff = None
                         try:
-                            char_buff = [f"rogue_2_mutation_{i}" for i in command_parts[3].split(",") if i]
+                            char_buff = [
+                                f"rogue_2_mutation_{i}"
+                                for i in command_parts[3].split(",")
+                                if i
+                            ]
                         except Exception:
                             pass
                         if char_buff is not None:
@@ -288,13 +290,19 @@ def social_getSortListInfo():
                                 if command_parts[2] in j["charId"]:
                                     j["charBuff"] = char_buff
                                     write_json(rlv2, RLV2_JSON_PATH)
-                                    playerDataDelta["modified"]["rlv2"] = {"current": rlv2}
+                                    playerDataDelta["modified"]["rlv2"] = {
+                                        "current": rlv2
+                                    }
                                     break
                 if command_parts[1] == "virtue":
                     if len(command_parts) > 2:
                         squad_buff = None
                         try:
-                            squad_buff = [f"rogue_2_virtue_{i}" for i in command_parts[2].split(",") if i]
+                            squad_buff = [
+                                f"rogue_2_virtue_{i}"
+                                for i in command_parts[2].split(",")
+                                if i
+                            ]
                         except Exception:
                             pass
                         if squad_buff is not None:
@@ -315,7 +323,9 @@ def social_getSortListInfo():
                         if season != -1:
                             flag = True
                             sandbox = read_json(SANDBOX_JSON_PATH)
-                            sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["map"]["season"]["type"] = season
+                            sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"][
+                                "map"
+                            ]["season"]["type"] = season
                             write_json(sandbox, SANDBOX_JSON_PATH)
                             playerDataDelta["modified"]["sandboxPerm"] = sandbox
                 if command_parts[1] == "rush":
@@ -364,7 +374,9 @@ def social_searchPlayer():
 
 
 def social_setAssistCharList():
-    return {"playerDataDelta": {"modified": {"social": request.get_json()}, "deleted": {}}}
+    return {
+        "playerDataDelta": {"modified": {"social": request.get_json()}, "deleted": {}}
+    }
 
 
 def social_setCardShowMedal():
@@ -415,7 +427,9 @@ def businessCard_changeNameCardComponent():
     request_data = request.get_json()
     return {
         "playerDataDelta": {
-            "modified": {"nameCardStyle": {"componentOrder": request_data["component"]}},
+            "modified": {
+                "nameCardStyle": {"componentOrder": request_data["component"]}
+            },
             "deleted": {},
         }
     }
@@ -425,7 +439,9 @@ def businessCard_changeNameCardSkin():
     request_data = request.get_json()
     return {
         "playerDataDelta": {
-            "modified": {"nameCardStyle": {"skin": {"selected": request_data["skinId"]}}},
+            "modified": {
+                "nameCardStyle": {"skin": {"selected": request_data["skinId"]}}
+            },
             "deleted": {},
         }
     }

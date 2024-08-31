@@ -19,14 +19,8 @@ def createRecruitList():
     tower = read_json(TOWERDATA_PATH)
     user_data = read_json(USER_JSON_PATH)
     candidate = []
-    allCards = [
-        str(user_data["user"]["troop"]["chars"][key]["instId"])
-        for key in user_data["user"]["troop"]["chars"]
-    ]
-    usedCards = [
-        str(tower["tower"]["current"]["cards"][key]["relation"])
-        for key in tower["tower"]["current"]["cards"]
-    ]
+    allCards = [str(user_data["user"]["troop"]["chars"][key]["instId"]) for key in user_data["user"]["troop"]["chars"]]
+    usedCards = [str(tower["tower"]["current"]["cards"][key]["relation"]) for key in tower["tower"]["current"]["cards"]]
     pickedCards = sample([card for card in allCards if card not in usedCards], 5)
     for pickedCard in pickedCards:
         candidate.append(
@@ -37,37 +31,17 @@ def createRecruitList():
                     {
                         "instId": "0",
                         "type": "CHAR",
-                        "charId": user_data["user"]["troop"]["chars"][pickedCard][
-                            "charId"
-                        ],
+                        "charId": user_data["user"]["troop"]["chars"][pickedCard]["charId"],
                         "relation": pickedCard,
-                        "evolvePhase": user_data["user"]["troop"]["chars"][pickedCard][
-                            "evolvePhase"
-                        ],
-                        "level": user_data["user"]["troop"]["chars"][pickedCard][
-                            "level"
-                        ],
-                        "favorPoint": user_data["user"]["troop"]["chars"][pickedCard][
-                            "favorPoint"
-                        ],
-                        "potentialRank": user_data["user"]["troop"]["chars"][
-                            pickedCard
-                        ]["potentialRank"],
-                        "mainSkillLvl": user_data["user"]["troop"]["chars"][pickedCard][
-                            "mainSkillLvl"
-                        ],
-                        "skills": user_data["user"]["troop"]["chars"][pickedCard][
-                            "skills"
-                        ],
-                        "defaultSkillIndex": user_data["user"]["troop"]["chars"][
-                            pickedCard
-                        ]["defaultSkillIndex"],
-                        "currentEquip": user_data["user"]["troop"]["chars"][pickedCard][
-                            "currentEquip"
-                        ],
-                        "equip": user_data["user"]["troop"]["chars"][pickedCard][
-                            "equip"
-                        ],
+                        "evolvePhase": user_data["user"]["troop"]["chars"][pickedCard]["evolvePhase"],
+                        "level": user_data["user"]["troop"]["chars"][pickedCard]["level"],
+                        "favorPoint": user_data["user"]["troop"]["chars"][pickedCard]["favorPoint"],
+                        "potentialRank": user_data["user"]["troop"]["chars"][pickedCard]["potentialRank"],
+                        "mainSkillLvl": user_data["user"]["troop"]["chars"][pickedCard]["mainSkillLvl"],
+                        "skills": user_data["user"]["troop"]["chars"][pickedCard]["skills"],
+                        "defaultSkillIndex": user_data["user"]["troop"]["chars"][pickedCard]["defaultSkillIndex"],
+                        "currentEquip": user_data["user"]["troop"]["chars"][pickedCard]["currentEquip"],
+                        "equip": user_data["user"]["troop"]["chars"][pickedCard]["equip"],
                         "skin": user_data["user"]["troop"]["chars"][pickedCard]["skin"],
                     }
                 ],
@@ -200,37 +174,19 @@ def towerInitCard():
     cnt = 1
     for slot in request_data["slots"]:
         tower["tower"]["current"]["cards"][str(cnt)] = {
-            "charId": user_data["user"]["troop"]["chars"][str(slot["charInstId"])][
-                "charId"
-            ],
+            "charId": user_data["user"]["troop"]["chars"][str(slot["charInstId"])]["charId"],
             "currentEquip": slot["currentEquip"],
             "defaultEquip": slot["skillIndex"],
-            "equip": user_data["user"]["troop"]["chars"][str(slot["charInstId"])][
-                "equip"
-            ],
-            "evolvePhase": user_data["user"]["troop"]["chars"][str(slot["charInstId"])][
-                "evolvePhase"
-            ],
-            "favorPoint": user_data["user"]["troop"]["chars"][str(slot["charInstId"])][
-                "favorPoint"
-            ],
+            "equip": user_data["user"]["troop"]["chars"][str(slot["charInstId"])]["equip"],
+            "evolvePhase": user_data["user"]["troop"]["chars"][str(slot["charInstId"])]["evolvePhase"],
+            "favorPoint": user_data["user"]["troop"]["chars"][str(slot["charInstId"])]["favorPoint"],
             "instId": str(cnt),
-            "level": user_data["user"]["troop"]["chars"][str(slot["charInstId"])][
-                "level"
-            ],
-            "mainSkillLvl": user_data["user"]["troop"]["chars"][
-                str(slot["charInstId"])
-            ]["mainSkillLvl"],
-            "potentialRank": user_data["user"]["troop"]["chars"][
-                str(slot["charInstId"])
-            ]["potentialRank"],
+            "level": user_data["user"]["troop"]["chars"][str(slot["charInstId"])]["level"],
+            "mainSkillLvl": user_data["user"]["troop"]["chars"][str(slot["charInstId"])]["mainSkillLvl"],
+            "potentialRank": user_data["user"]["troop"]["chars"][str(slot["charInstId"])]["potentialRank"],
             "relation": str(slot["charInstId"]),
-            "skills": user_data["user"]["troop"]["chars"][str(slot["charInstId"])][
-                "skills"
-            ],
-            "skin": user_data["user"]["troop"]["chars"][str(slot["charInstId"])][
-                "skin"
-            ],
+            "skills": user_data["user"]["troop"]["chars"][str(slot["charInstId"])]["skills"],
+            "skin": user_data["user"]["troop"]["chars"][str(slot["charInstId"])]["skin"],
             "type": "CHAR",
         }
         cnt += 1
@@ -252,9 +208,7 @@ def towerBattleStart():
     request_data = request.get_json()
     tower = read_json(TOWERDATA_PATH)
 
-    tower["tower"]["current"]["status"]["coord"] = currentCoords(
-        request_data["stageId"]
-    )
+    tower["tower"]["current"]["status"]["coord"] = currentCoords(request_data["stageId"])
     tower["currentStage"] = request_data["stageId"]
     for stage in tower["tower"]["current"]["layer"]:
         if stage["id"] == request_data["stageId"]:
@@ -279,9 +233,7 @@ def towerBattleFinish():
     trap = []
 
     if BattleData["completeState"] == 1:
-        tower["tower"]["current"]["layer"][
-            tower["tower"]["current"]["status"]["coord"] - 1
-        ]["try"] += 1
+        tower["tower"]["current"]["layer"][tower["tower"]["current"]["status"]["coord"] - 1]["try"] += 1
         write_json(tower, TOWERDATA_PATH)
 
         data = {
@@ -345,32 +297,18 @@ def towerRecruit():
         pass
     else:
         cnt = len(tower["tower"]["current"]["cards"]) + 2
-        charInstId = str(
-            user_data["user"]["dexNav"]["character"][request_data["charId"]][
-                "charInstId"
-            ]
-        )
+        charInstId = str(user_data["user"]["dexNav"]["character"][request_data["charId"]]["charInstId"])
         tower["tower"]["current"]["cards"][str(cnt)] = {
             "charId": request_data["charId"],
-            "currentEquip": user_data["user"]["troop"]["chars"][charInstId][
-                "currentEquip"
-            ],
-            "defaultSkillIndex": user_data["user"]["troop"]["chars"][charInstId][
-                "defaultSkillIndex"
-            ],
+            "currentEquip": user_data["user"]["troop"]["chars"][charInstId]["currentEquip"],
+            "defaultSkillIndex": user_data["user"]["troop"]["chars"][charInstId]["defaultSkillIndex"],
             "equip": user_data["user"]["troop"]["chars"][charInstId]["equip"],
-            "evolvePhase": user_data["user"]["troop"]["chars"][charInstId][
-                "evolvePhase"
-            ],
+            "evolvePhase": user_data["user"]["troop"]["chars"][charInstId]["evolvePhase"],
             "favorPoint": user_data["user"]["troop"]["chars"][charInstId]["favorPoint"],
             "instId": str(cnt),
             "level": user_data["user"]["troop"]["chars"][charInstId]["level"],
-            "mainSkillLvl": user_data["user"]["troop"]["chars"][charInstId][
-                "mainSkillLvl"
-            ],
-            "potentialRank": user_data["user"]["troop"]["chars"][charInstId][
-                "potentialRank"
-            ],
+            "mainSkillLvl": user_data["user"]["troop"]["chars"][charInstId]["mainSkillLvl"],
+            "potentialRank": user_data["user"]["troop"]["chars"][charInstId]["potentialRank"],
             "relation": charInstId,
             "skills": user_data["user"]["troop"]["chars"][charInstId]["skills"],
             "skin": user_data["user"]["troop"]["chars"][charInstId]["skin"],
@@ -452,15 +390,7 @@ def towerSettleGame():
                     }
                 }
             },
-            "deleted": {
-                "tower": {
-                    "current": {
-                        "cards": [
-                            str(key) for key in tower["tower"]["current"]["cards"]
-                        ]
-                    }
-                }
-            },
+            "deleted": {"tower": {"current": {"cards": [str(key) for key in tower["tower"]["current"]["cards"]]}}},
         },
     }
     return data

@@ -64,10 +64,7 @@ def loadMods(log: bool = True, no_validate_mod_cache=False):
                 if not zipfile.ZipInfo.is_dir(info):
                     modName = fileName
                     if modName in loadedModList["name"]:
-                        writeLog(
-                            filePath
-                            + " - \033[1;33mConflict with other mods...\033[0;0m"
-                        )
+                        writeLog(filePath + " - \033[1;33mConflict with other mods...\033[0;0m")
                         continue
 
                     byteBuffer = modFile.read(fileName)
@@ -84,20 +81,12 @@ def loadMods(log: bool = True, no_validate_mod_cache=False):
                     }
 
                     if log:
-                        writeLog(
-                            filePath
-                            + " - \033[1;32mMod loaded successfully...\033[0;0m"
-                        )
+                        writeLog(filePath + " - \033[1;32mMod loaded successfully...\033[0;0m")
 
                     loadedModList["mods"].append(abInfo)
                     loadedModList["name"].append(modName)
                     loadedModList["path"].append(filePath)
-                    downloadName = (
-                        os.path.splitext(modName.replace("/", "_").replace("#", "__"))[
-                            0
-                        ]
-                        + ".dat"
-                    )
+                    downloadName = os.path.splitext(modName.replace("/", "_").replace("#", "__"))[0] + ".dat"
                     loadedModList["download"].append(downloadName)
 
         except Exception as e:

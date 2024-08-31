@@ -2773,9 +2773,7 @@ def setSquad():
 
     request_json = request.get_json()
 
-    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["troop"]["squad"][
-        request_json["index"]
-    ] = {"slots": request_json["slots"], "tools": request_json["tools"]}
+    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["troop"]["squad"][request_json["index"]] = {"slots": request_json["slots"], "tools": request_json["tools"]}
 
     write_json(sandbox, SANDBOX_JSON_PATH)
     data = {"playerDataDelta": {"modified": {"sandboxPerm": sandbox}, "deleted": {}}}
@@ -2809,21 +2807,12 @@ def battleFinish():
 
     sandbox = read_json(SANDBOX_JSON_PATH)
 
-    if (
-        "building"
-        not in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][
-            node_id
-        ]
-    ):
-        sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][
-            node_id
-        ]["building"] = []
+    if "building" not in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]:
+        sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"] = []
 
     for i in request_json["sandboxV2Data"]["placedItems"]:
         if i["value"]["hpRatio"]:
-            sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][
-                node_id
-            ]["building"].append(
+            sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"].append(
                 {
                     "key": i["key"]["itemId"],
                     "pos": [i["key"]["position"]["row"], i["key"]["position"]["col"]],
@@ -2832,23 +2821,10 @@ def battleFinish():
                 }
             )
         else:
-            for j in range(
-                len(
-                    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"][
-                        "node"
-                    ][node_id]["building"]
-                )
-            ):
-                k = sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"][
-                    "node"
-                ][node_id]["building"][j]
-                if (
-                    k["pos"][0] == i["key"]["position"]["row"]
-                    and k["pos"][1] == i["key"]["position"]["col"]
-                ):
-                    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"][
-                        "node"
-                    ][node_id]["building"].pop(j)
+            for j in range(len(sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"])):
+                k = sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"][j]
+                if k["pos"][0] == i["key"]["position"]["row"] and k["pos"][1] == i["key"]["position"]["col"]:
+                    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"].pop(j)
                     break
 
     write_json(sandbox, SANDBOX_JSON_PATH)
@@ -2872,21 +2848,12 @@ def homeBuildSave():
 
     node_id = request_json["nodeId"]
 
-    if (
-        "building"
-        not in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][
-            node_id
-        ]
-    ):
-        sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][
-            node_id
-        ]["building"] = []
+    if "building" not in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]:
+        sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"] = []
 
     for i in request_json["operation"]:
         if i["type"] == 1:
-            sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][
-                node_id
-            ]["building"].append(
+            sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"].append(
                 {
                     "key": i["buildingId"],
                     "pos": [i["pos"]["row"], i["pos"]["col"]],
@@ -2895,20 +2862,10 @@ def homeBuildSave():
                 }
             )
         elif i["type"] == 3:
-            for j in range(
-                len(
-                    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"][
-                        "node"
-                    ][node_id]["building"]
-                )
-            ):
-                k = sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"][
-                    "node"
-                ][node_id]["building"][j]
+            for j in range(len(sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"])):
+                k = sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"][j]
                 if k["pos"][0] == i["pos"]["row"] and k["pos"][1] == i["pos"]["col"]:
-                    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"][
-                        "node"
-                    ][node_id]["building"].pop(j)
+                    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"].pop(j)
                     break
 
     write_json(sandbox, SANDBOX_JSON_PATH)
@@ -2946,15 +2903,11 @@ def settleGame():
                                         "ap": 0,
                                         "maxAp": 0,
                                     },
-                                    "map": {
-                                        "season": {"type": 0, "remain": 0, "total": 0}
-                                    },
+                                    "map": {"season": {"type": 0, "remain": 0, "total": 0}},
                                     "report": {"settle": null, "daily": null},
                                     "event": {"node": {}, "effect": []},
                                 },
-                                "buff": {
-                                    "rune": {"global": [], "node": {}, "char": {}}
-                                },
+                                "buff": {"rune": {"global": [], "node": {}, "char": {}}},
                                 "riftInfo": {
                                     "isUnlocked": false,
                                     "randomRemain": 0,
@@ -3022,55 +2975,17 @@ def settleGame():
                         "SANDBOX_V2": {
                             "sandbox_1": {
                                 "main": {
-                                    "map": {
-                                        "node": [
-                                            i
-                                            for i in sandbox["template"]["SANDBOX_V2"][
-                                                "sandbox_1"
-                                            ]["main"]["map"]["node"]
-                                        ]
-                                    },
-                                    "stage": {
-                                        "node": [
-                                            i
-                                            for i in sandbox["template"]["SANDBOX_V2"][
-                                                "sandbox_1"
-                                            ]["main"]["stage"]["node"]
-                                        ]
-                                    },
-                                    "enemy": {
-                                        "enemyRush": [
-                                            i
-                                            for i in sandbox["template"]["SANDBOX_V2"][
-                                                "sandbox_1"
-                                            ]["main"]["enemy"]["enemyRush"]
-                                        ]
-                                    },
+                                    "map": {"node": [i for i in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["map"]["node"]]},
+                                    "stage": {"node": [i for i in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"]]},
+                                    "enemy": {"enemyRush": [i for i in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["enemy"]["enemyRush"]]},
                                 },
                                 "buff": {
                                     "rune": {
-                                        "node": [
-                                            i
-                                            for i in sandbox["template"]["SANDBOX_V2"][
-                                                "sandbox_1"
-                                            ]["buff"]["rune"]["node"]
-                                        ],
-                                        "char": [
-                                            i
-                                            for i in sandbox["template"]["SANDBOX_V2"][
-                                                "sandbox_1"
-                                            ]["buff"]["rune"]["char"]
-                                        ],
+                                        "node": [i for i in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["buff"]["rune"]["node"]],
+                                        "char": [i for i in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["buff"]["rune"]["char"]],
                                     }
                                 },
-                                "troop": {
-                                    "food": [
-                                        i
-                                        for i in sandbox["template"]["SANDBOX_V2"][
-                                            "sandbox_1"
-                                        ]["troop"]["food"]
-                                    ]
-                                },
+                                "troop": {"food": [i for i in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["troop"]["food"]]},
                             }
                         }
                     }
@@ -3186,24 +3101,17 @@ def eatFood():
 
     food = sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["cook"]["food"][food_inst_id]
 
-    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["troop"]["food"][
-        str(char_inst_id)
-    ] = {"id": food["id"], "sub": food["sub"], "day": 6}
+    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["troop"]["food"][str(char_inst_id)] = {"id": food["id"], "sub": food["sub"], "day": 6}
 
     buff = food["id"]
 
     sandbox_table = update_data(SANDBOX_TABLE_URL)
 
     if food["sub"] == ["sandbox_1_condiment", "sandbox_1_condiment"]:
-        if (
-            buff + "_x"
-            in sandbox_table["detail"]["SANDBOX_V2"]["sandbox_1"]["runeDatas"]
-        ):
+        if buff + "_x" in sandbox_table["detail"]["SANDBOX_V2"]["sandbox_1"]["runeDatas"]:
             buff += "_x"
 
-    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["buff"]["rune"]["char"][
-        str(char_inst_id)
-    ] = [buff]
+    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["buff"]["rune"]["char"][str(char_inst_id)] = [buff]
 
     write_json(SANDBOX_JSON_PATH, sandbox)
     data = {"playerDataDelta": {"modified": {"sandboxPerm": sandbox}, "deleted": {}}}
@@ -3213,9 +3121,7 @@ def eatFood():
 
 def getNextEnemyRushId(sandbox):
     d = set()
-    for e in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["enemy"][
-        "enemyRush"
-    ]:
+    for e in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["enemy"]["enemyRush"]:
         d.add(int(e[3:]))
     i = 1
     while i in d:
@@ -3242,12 +3148,8 @@ def addEnemyRush(sandbox, node_id, enemy_id):
     }
 
     flag = False
-    for i in sandbox_table["detail"]["SANDBOX_V2"]["sandbox_1"]["rushEnemyData"][
-        "rushEnemyGroupConfigs"
-    ]:
-        for j in sandbox_table["detail"]["SANDBOX_V2"]["sandbox_1"]["rushEnemyData"][
-            "rushEnemyGroupConfigs"
-        ][i]:
+    for i in sandbox_table["detail"]["SANDBOX_V2"]["sandbox_1"]["rushEnemyData"]["rushEnemyGroupConfigs"]:
+        for j in sandbox_table["detail"]["SANDBOX_V2"]["sandbox_1"]["rushEnemyData"]["rushEnemyGroupConfigs"][i]:
             if j["enemyGroupKey"] == enemy_id:
                 for k in j["enemy"]:
                     enemy.append([k["count"], k["count"]])
@@ -3257,9 +3159,7 @@ def addEnemyRush(sandbox, node_id, enemy_id):
         if flag:
             break
 
-    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["enemy"]["enemyRush"][
-        enemy_rush_id
-    ] = {
+    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["enemy"]["enemyRush"][enemy_rush_id] = {
         "enemyRushType": enemy_rush_type,
         "groupKey": enemy_id,
         "state": 0,
@@ -3285,21 +3185,12 @@ def monthBattleFinish():
 
     sandbox = read_json(SANDBOX_JSON_PATH)
 
-    if (
-        "building"
-        not in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][
-            node_id
-        ]
-    ):
-        sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][
-            node_id
-        ]["building"] = []
+    if "building" not in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]:
+        sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"] = []
 
     for i in request_json["sandboxV2Data"]["placedItems"]:
         if i["value"]["hpRatio"]:
-            sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][
-                node_id
-            ]["building"].append(
+            sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"].append(
                 {
                     "key": i["key"]["itemId"],
                     "pos": [i["key"]["position"]["row"], i["key"]["position"]["col"]],
@@ -3308,23 +3199,10 @@ def monthBattleFinish():
                 }
             )
         else:
-            for j in range(
-                len(
-                    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"][
-                        "node"
-                    ][node_id]["building"]
-                )
-            ):
-                k = sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"][
-                    "node"
-                ][node_id]["building"][j]
-                if (
-                    k["pos"][0] == i["key"]["position"]["row"]
-                    and k["pos"][1] == i["key"]["position"]["col"]
-                ):
-                    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"][
-                        "node"
-                    ][node_id]["building"].pop(j)
+            for j in range(len(sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"])):
+                k = sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"][j]
+                if k["pos"][0] == i["key"]["position"]["row"] and k["pos"][1] == i["key"]["position"]["col"]:
+                    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["main"]["stage"]["node"][node_id]["building"].pop(j)
                     break
 
     write_json(sandbox, SANDBOX_JSON_PATH)
@@ -3343,27 +3221,16 @@ def exploreMode():
 
     sandbox = read_json(SANDBOX_JSON_PATH)
 
-    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["status"]["exploreMode"] = (
-        exploreMode
-    )
+    sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["status"]["exploreMode"] = exploreMode
 
     exploreModeBuffs = ["normal_mode_buff1", "normal_mode_buff3"]
 
     if exploreMode:
-        sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["buff"]["rune"]["global"] += (
-            exploreModeBuffs
-        )
+        sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["buff"]["rune"]["global"] += exploreModeBuffs
     else:
         for buff in exploreModeBuffs:
-            if (
-                buff
-                in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["buff"]["rune"][
-                    "global"
-                ]
-            ):
-                sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["buff"]["rune"][
-                    "global"
-                ].remove(buff)
+            if buff in sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["buff"]["rune"]["global"]:
+                sandbox["template"]["SANDBOX_V2"]["sandbox_1"]["buff"]["rune"]["global"].remove(buff)
 
     write_json(sandbox, SANDBOX_JSON_PATH)
 

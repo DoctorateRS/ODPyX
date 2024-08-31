@@ -27,6 +27,4 @@ def read_json(path: str, **kwargs) -> Any:
 
 def write_json(path: str, data: Any, **kwargs):
     with open(path, "w", **kwargs) as f:
-        f.write(
-            format(JsonUtils.encoder.encode(data).decode(encoding="utf-8"), indent=4)
-        )
+        f.write(format(JsonUtils.encoder.encode(data).decode(encoding="utf-8"), indent=4))

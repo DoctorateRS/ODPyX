@@ -23,10 +23,7 @@ def normalGacha():
                         "slots": {
                             str(request_json["slotId"]): {
                                 "state": 2,
-                                "selectTags": [
-                                    {"tagId": i, "pick": 1}
-                                    for i in request_json["tagList"]
-                                ],
+                                "selectTags": [{"tagId": i, "pick": 1} for i in request_json["tagList"]],
                                 "startTs": start_ts,
                                 "durationInSec": request_json["duration"],
                                 "maxFinishTs": start_ts + request_json["duration"],

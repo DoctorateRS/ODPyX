@@ -95,13 +95,7 @@ def accountSyncData():
             continue
 
         player_data["user"]["skin"]["characterSkins"][skinKeys[cnt]] = 1
-        if (
-            i["charId"] not in tempSkinTable.keys()
-            or i["displaySkin"]["onYear"]
-            > data_skin["charSkins"][tempSkinTable[i["charId"]]]["displaySkin"][
-                "onYear"
-            ]
-        ):
+        if i["charId"] not in tempSkinTable.keys() or i["displaySkin"]["onYear"] > data_skin["charSkins"][tempSkinTable[i["charId"]]]["displaySkin"]["onYear"]:
             tempSkinTable[i["charId"]] = i["skinId"]
         cnt += 1
 
@@ -189,9 +183,7 @@ def accountSyncData():
 
             # M3
             if len(skill["levelUpCostCond"]) > 0:
-                myCharList[int(cntInstId)]["skills"][index]["specializeLevel"] = (
-                    edit_json["skillsSpecializeLevel"]
-                )
+                myCharList[int(cntInstId)]["skills"][index]["specializeLevel"] = edit_json["skillsSpecializeLevel"]
 
         # Add equips
         if myCharList[int(cntInstId)]["charId"] in equip_keys:
@@ -199,12 +191,8 @@ def accountSyncData():
                 level = 1
                 if equip in list(battle_equip_table.keys()):
                     level = len(battle_equip_table[equip]["phases"])
-                myCharList[int(cntInstId)]["equip"].update(
-                    {equip: {"hide": 0, "locked": 0, "level": level}}
-                )
-            myCharList[int(cntInstId)]["currentEquip"] = equip_table["charEquip"][
-                myCharList[int(cntInstId)]["charId"]
-            ][-1]
+                myCharList[int(cntInstId)]["equip"].update({equip: {"hide": 0, "locked": 0, "level": level}})
+            myCharList[int(cntInstId)]["currentEquip"] = equip_table["charEquip"][myCharList[int(cntInstId)]["charId"]][-1]
 
         # Dexnav
         player_data["user"]["dexNav"]["character"][operatorKeys[cnt]] = {
@@ -227,9 +215,7 @@ def accountSyncData():
                                     "skillId": skill_name,
                                     "unlock": 1,
                                     "state": 0,
-                                    "specializeLevel": edit_json[
-                                        "skillsSpecializeLevel"
-                                    ],
+                                    "specializeLevel": edit_json["skillsSpecializeLevel"],
                                     "completeUpgradeTime": -1,
                                 }
                                 for skill_name in [
@@ -249,9 +235,7 @@ def accountSyncData():
                                     "skillId": skill_name,
                                     "unlock": 1,
                                     "state": 0,
-                                    "specializeLevel": edit_json[
-                                        "skillsSpecializeLevel"
-                                    ],
+                                    "specializeLevel": edit_json["skillsSpecializeLevel"],
                                     "completeUpgradeTime": -1,
                                 }
                                 for skill_name in ["skchr_amiya2_1", "skchr_amiya2_2"]
@@ -267,9 +251,7 @@ def accountSyncData():
                                     "skillId": skill_name,
                                     "unlock": 1,
                                     "state": 0,
-                                    "specializeLevel": edit_json[
-                                        "skillsSpecializeLevel"
-                                    ],
+                                    "specializeLevel": edit_json["skillsSpecializeLevel"],
                                     "completeUpgradeTime": -1,
                                 }
                                 for skill_name in ["skchr_amiya3_1", "skchr_amiya3_2"]
@@ -284,12 +266,8 @@ def accountSyncData():
                 level = 1
                 if equip in list(battle_equip_table.keys()):
                     level = len(battle_equip_table[equip]["phases"])
-                myCharList[int(cntInstId)]["tmpl"]["char_002_amiya"]["equip"].update(
-                    {equip: {"hide": 0, "locked": 0, "level": level}}
-                )
-            myCharList[int(cntInstId)]["tmpl"]["char_002_amiya"]["currentEquip"] = (
-                equip_table["charEquip"]["char_002_amiya"][-1]
-            )
+                myCharList[int(cntInstId)]["tmpl"]["char_002_amiya"]["equip"].update({equip: {"hide": 0, "locked": 0, "level": level}})
+            myCharList[int(cntInstId)]["tmpl"]["char_002_amiya"]["currentEquip"] = equip_table["charEquip"]["char_002_amiya"][-1]
         elif operatorKeys[cnt] == "char_512_aprot":
             myCharList[int(cntInstId)]["skin"] = "char_512_aprot#1"
 
@@ -366,13 +344,7 @@ def accountSyncData():
         story = addon_table["handbookDict"][charId]["handbookAvgList"]
         for i, j in zip(story, range(len(story))):
             if "storySetId" in i:
-                addonList[charId]["story"].update(
-                    {
-                        addon_table["handbookDict"][charId]["handbookAvgList"][j][
-                            "storySetId"
-                        ]: {"fts": 1649232340, "rts": 1649232340}
-                    }
-                )
+                addonList[charId]["story"].update({addon_table["handbookDict"][charId]["handbookAvgList"][j]["storySetId"]: {"fts": 1649232340, "rts": 1649232340}})
 
     for stage in addon_table["handbookStageData"]:
         addonList[stage].update(
@@ -408,9 +380,7 @@ def accountSyncData():
     # Tamper Anniliations
     for stage in stage_table["stages"]:
         if stage.startswith("camp"):
-            player_data["user"]["campaignsV2"]["instances"].update(
-                {stage: {"maxKills": 400, "rewardStatus": [1, 1, 1, 1, 1, 1, 1, 1]}}
-            )
+            player_data["user"]["campaignsV2"]["instances"].update({stage: {"maxKills": 400, "rewardStatus": [1, 1, 1, 1, 1, 1, 1, 1]}})
 
             player_data["user"]["campaignsV2"]["sweepMaxKills"].update({stage: 400})
             player_data["user"]["campaignsV2"]["open"]["permanent"].append(stage)
@@ -423,9 +393,7 @@ def accountSyncData():
             {
                 avatar["avatarId"]: {
                     "ts": round(time()),
-                    "src": "initial"
-                    if avatar["avatarId"].startswith("avatar_def")
-                    else "other",
+                    "src": "initial" if avatar["avatarId"].startswith("avatar_def") else "other",
                 }
             }
         )
@@ -453,9 +421,7 @@ def accountSyncData():
                 {
                     car_gear: {
                         "id": car_gear,
-                        "num": len(
-                            activity_table["carData"]["carDict"][car_gear]["posList"]
-                        ),
+                        "num": len(activity_table["carData"]["carDict"][car_gear]["posList"]),
                     }
                 }
             )
@@ -469,16 +435,7 @@ def accountSyncData():
         player_data["user"]["deepSea"]["nodes"].update({node: 2})
 
     for choice_node in activity_data["choiceNodeDataMap"]:
-        player_data["user"]["deepSea"]["choices"].update(
-            {
-                choice_node: [
-                    2
-                    for _ in activity_data["choiceNodeDataMap"][choice_node][
-                        "optionList"
-                    ]
-                ]
-            }
-        )
+        player_data["user"]["deepSea"]["choices"].update({choice_node: [2 for _ in activity_data["choiceNodeDataMap"][choice_node]["optionList"]]})
 
     for event in activity_data["eventDataMap"]:
         player_data["user"]["deepSea"]["events"].update({event: 1})
@@ -487,9 +444,7 @@ def accountSyncData():
         player_data["user"]["deepSea"]["treasures"].update({treasure: 1})
 
     for story in activity_data["storyNodeDataMap"]:
-        player_data["user"]["deepSea"]["stories"].update(
-            {activity_data["storyNodeDataMap"][story]["storyKey"]: 1}
-        )
+        player_data["user"]["deepSea"]["stories"].update({activity_data["storyNodeDataMap"][story]["storyKey"]: 1})
 
     for tech in activity_data["techTreeDataMap"]:
         player_data["user"]["deepSea"]["techTrees"].update(
@@ -513,10 +468,7 @@ def accountSyncData():
 
     # Check if mail exists
     for mailId in mail_data["mailList"]:
-        if (
-            int(mailId) not in mail_data["recievedIDs"]
-            and int(mailId) not in mail_data["deletedIDs"]
-        ):
+        if int(mailId) not in mail_data["recievedIDs"] and int(mailId) not in mail_data["deletedIDs"]:
             player_data["user"]["pushFlags"]["hasGifts"] = 1
             break
 
@@ -531,9 +483,7 @@ def accountSyncData():
     player_data["ts"] = ts
 
     replay_data = read_json(BATTLE_REPLAY_JSON_PATH)
-    replay_data["currentCharConfig"] = md5(
-        b64encode(JsonUtils.dumps(edit_json).encode())
-    ).hexdigest()
+    replay_data["currentCharConfig"] = md5(b64encode(JsonUtils.dumps(edit_json).encode())).hexdigest()
     write_json(replay_data, BATTLE_REPLAY_JSON_PATH)
 
     # if config["userConfig"]["restorePreviousStates"]["is2"]:
@@ -560,10 +510,7 @@ def accountSyncData():
             if charId in charId2instId:
                 instId = charId2instId[charId]
                 slot["charInstId"] = instId
-                if (
-                    slot["currentEquip"]
-                    not in player_data["user"]["troop"]["chars"][instId]["equip"]
-                ):
+                if slot["currentEquip"] not in player_data["user"]["troop"]["chars"][instId]["equip"]:
                     slot["currentEquip"] = None
             else:
                 squads_data[i]["slots"][j] = None
@@ -575,38 +522,23 @@ def accountSyncData():
     player_data["user"]["troop"]["squads"] = squads_data
 
     # Copy over from previous launch if data exists
-    if (
-        "user" in saved_data
-        and config["userConfig"]["restorePreviousStates"]["squadsAndFavs"]
-    ):
+    if "user" in saved_data and config["userConfig"]["restorePreviousStates"]["squadsAndFavs"]:
         player_data["user"]["troop"]["squads"] = saved_data["user"]["troop"]["squads"]
 
         for _, saved_character in saved_data["user"]["troop"]["chars"].items():
             index = None
-            for character_index, character in player_data["user"]["troop"][
-                "chars"
-            ].items():
+            for character_index, character in player_data["user"]["troop"]["chars"].items():
                 if saved_character["charId"] == character["charId"]:
                     index = character_index
                     break
 
             if index is not None:
-                player_data["user"]["troop"]["chars"][index]["starMark"] = (
-                    saved_character["starMark"]
-                )
-                player_data["user"]["troop"]["chars"][index]["voiceLan"] = (
-                    saved_character["voiceLan"]
-                )
-                player_data["user"]["troop"]["chars"][index]["skin"] = saved_character[
-                    "skin"
-                ]
-                player_data["user"]["troop"]["chars"][index]["defaultSkillIndex"] = (
-                    saved_character["defaultSkillIndex"]
-                )
+                player_data["user"]["troop"]["chars"][index]["starMark"] = saved_character["starMark"]
+                player_data["user"]["troop"]["chars"][index]["voiceLan"] = saved_character["voiceLan"]
+                player_data["user"]["troop"]["chars"][index]["skin"] = saved_character["skin"]
+                player_data["user"]["troop"]["chars"][index]["defaultSkillIndex"] = saved_character["defaultSkillIndex"]
                 if saved_character["currentEquip"]:
-                    player_data["user"]["troop"]["chars"][index]["currentEquip"] = (
-                        saved_character["currentEquip"]
-                    )
+                    player_data["user"]["troop"]["chars"][index]["currentEquip"] = saved_character["currentEquip"]
 
     secretary = config["userConfig"]["secretary"]
     secretarySkinId = config["userConfig"]["secretarySkinId"]
@@ -634,13 +566,9 @@ def accountSyncData():
     for i in story_review_table:
         story_review_groups[i] = {"rts": 1700000000, "stories": [], "trailRewards": []}
         for j in story_review_table[i]["infoUnlockDatas"]:
-            story_review_groups[i]["stories"].append(
-                {"id": j["storyId"], "uts": 1695000000, "rc": 1}
-            )
+            story_review_groups[i]["stories"].append({"id": j["storyId"], "uts": 1695000000, "rc": 1})
         if i in story_review_meta_table["miniActTrialData"]["miniActTrialDataMap"]:
-            for j in story_review_meta_table["miniActTrialData"]["miniActTrialDataMap"][
-                i
-            ]["rewardList"]:
+            for j in story_review_meta_table["miniActTrialData"]["miniActTrialDataMap"][i]["rewardList"]:
                 story_review_groups[i]["trailRewards"].append(j["trialRewardId"])
     player_data["user"]["storyreview"]["groups"] = story_review_groups
 
@@ -675,34 +603,24 @@ def accountSyncData():
     rlv2_table = update_data(RL_TABLE_URL)
     for theme in player_data["user"]["rlv2"]["outer"]:
         if theme in rlv2_table["details"]:
-            player_data["user"]["rlv2"]["outer"][theme]["record"]["stageCnt"] = {
-                i: 1 for i in rlv2_table["details"][theme]["stages"]
-            }
+            player_data["user"]["rlv2"]["outer"][theme]["record"]["stageCnt"] = {i: 1 for i in rlv2_table["details"][theme]["stages"]}
 
     selected_crisis = config["crisisV2Config"]["selectedCrisis"]
     if selected_crisis:
-        rune = read_json(
-            f"{CRISIS_V2_JSON_BASE_PATH}{selected_crisis}.json", encoding="utf-8"
-        )
+        rune = read_json(f"{CRISIS_V2_JSON_BASE_PATH}{selected_crisis}.json", encoding="utf-8")
         season = rune["info"]["seasonId"]
         player_data["user"]["crisisV2"]["current"] = season
 
     gacha = read_json(GACHA_JSON_PATH)
     for i in player_data["user"]["recruit"]["normal"]["slots"]:
-        player_data["user"]["recruit"]["normal"]["slots"][i]["tags"] = gacha["normal"][
-            "tags"
-        ]
+        player_data["user"]["recruit"]["normal"]["slots"][i]["tags"] = gacha["normal"]["tags"]
 
-    player_data["user"]["sandboxPerm"]["template"]["SANDBOX_V2"]["sandbox_1"].update(
-        sandbox["template"]["SANDBOX_V2"]["sandbox_1"]
-    )
+    player_data["user"]["sandboxPerm"]["template"]["SANDBOX_V2"]["sandbox_1"].update(sandbox["template"]["SANDBOX_V2"]["sandbox_1"])
 
     write_json(player_data, USER_JSON_PATH)
 
     building = buildingSync()
-    player_data["user"]["building"] = building["playerDataDelta"]["modified"][
-        "building"
-    ]
+    player_data["user"]["building"] = building["playerDataDelta"]["modified"]["building"]
 
     return player_data
 

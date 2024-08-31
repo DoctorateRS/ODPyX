@@ -12,9 +12,7 @@ def crisisGetCrisisInfo():
     selected_crisis = read_json(CONFIG_PATH)["crisisConfig"]["selectedCrisis"]
 
     if selected_crisis:
-        rune = read_json(
-            f"{CRISIS_JSON_BASE_PATH}{selected_crisis}.json", encoding="utf-8"
-        )
+        rune = read_json(f"{CRISIS_JSON_BASE_PATH}{selected_crisis}.json", encoding="utf-8")
         current_time = round(time())
         next_day = round(time()) + 86400
 
@@ -54,9 +52,7 @@ def crisisBattleStart():
     data = request.data
     data = request.get_json()
     selected_crisis = read_json(CONFIG_PATH)["crisisConfig"]["selectedCrisis"]
-    rune_data = read_json(
-        f"{CRISIS_JSON_BASE_PATH}{selected_crisis}.json", encoding="utf8"
-    )["data"]["stageRune"][data["stageId"]]
+    rune_data = read_json(f"{CRISIS_JSON_BASE_PATH}{selected_crisis}.json", encoding="utf8")["data"]["stageRune"][data["stageId"]]
 
     total_risks = 0
     for each_rune in data["rune"]:
@@ -99,9 +95,7 @@ def crisisBattleFinish():
 def crisisV2_getInfo():
     selected_crisis = read_json(CONFIG_PATH)["crisisV2Config"]["selectedCrisis"]
     if selected_crisis:
-        rune = read_json(
-            f"{CRISIS_V2_JSON_BASE_PATH}{selected_crisis}.json", encoding="utf-8"
-        )
+        rune = read_json(f"{CRISIS_V2_JSON_BASE_PATH}{selected_crisis}.json", encoding="utf-8")
     else:
         rune = {
             "info": {},
@@ -131,9 +125,7 @@ def crisisV2_battleFinish():
     runeSlots = battle_data["runeSlots"]
     scoreCurrent = [0, 0, 0, 0, 0, 0]
     selected_crisis = read_json(CONFIG_PATH)["crisisV2Config"]["selectedCrisis"]
-    rune = read_json(
-        f"{CRISIS_V2_JSON_BASE_PATH}{selected_crisis}.json", encoding="utf-8"
-    )
+    rune = read_json(f"{CRISIS_V2_JSON_BASE_PATH}{selected_crisis}.json", encoding="utf-8")
 
     nodes = {}
     for slot in rune["info"]["mapDetailDataMap"][mapId]["nodeDataMap"]:
@@ -152,13 +144,9 @@ def crisisV2_battleFinish():
         if mutualExclusionGroup not in nodes[slotPackId]:
             nodes[slotPackId][mutualExclusionGroup] = {}
         if "runeId" in nodeData:
-            runeId = rune["info"]["mapDetailDataMap"][mapId]["nodeDataMap"][slot][
-                "runeId"
-            ]
+            runeId = rune["info"]["mapDetailDataMap"][mapId]["nodeDataMap"][slot]["runeId"]
             if runeId:
-                runeData = rune["info"]["mapDetailDataMap"][mapId]["runeDataMap"][
-                    runeId
-                ]
+                runeData = rune["info"]["mapDetailDataMap"][mapId]["runeDataMap"][runeId]
                 score = runeData["score"]
             else:
                 score = 0
@@ -172,9 +160,7 @@ def crisisV2_battleFinish():
         for mutualExclusionGroup in nodes[slotPackId]:
             score_max = 0
             for slot in nodes[slotPackId][mutualExclusionGroup]:
-                score_max = max(
-                    score_max, nodes[slotPackId][mutualExclusionGroup][slot]
-                )
+                score_max = max(score_max, nodes[slotPackId][mutualExclusionGroup][slot])
             flag2 = False
             for slot in nodes[slotPackId][mutualExclusionGroup]:
                 if nodes[slotPackId][mutualExclusionGroup][slot] != score_max:
@@ -194,9 +180,7 @@ def crisisV2_battleFinish():
     for slot in runeSlots:
         nodeData = rune["info"]["mapDetailDataMap"][mapId]["nodeDataMap"][slot]
         if "runeId" in nodeData:
-            runeId = rune["info"]["mapDetailDataMap"][mapId]["nodeDataMap"][slot][
-                "runeId"
-            ]
+            runeId = rune["info"]["mapDetailDataMap"][mapId]["nodeDataMap"][slot]["runeId"]
             runeIds.append(runeId)
             runeData = rune["info"]["mapDetailDataMap"][mapId]["runeDataMap"][runeId]
             scoreCurrent[runeData["dimension"]] += runeData["score"]

@@ -102,9 +102,7 @@ def questSaveBattleReplay():
     data = {
         "result": 0,
         "playerDataDelta": {
-            "modified": {
-                "dungeon": {"stages": {replay_data["current"]: {"hasBattleReplay": 1}}}
-            },
+            "modified": {"dungeon": {"stages": {replay_data["current"]: {"hasBattleReplay": 1}}}},
             "deleted": {},
         },
     }
@@ -117,18 +115,12 @@ def questSaveBattleReplay():
     if read_json(CONFIG_PATH)["battleReplayConfig"]["anonymous"]:
         decoded_battle_replay["campaignOnlyVersion"] = 0
         decoded_battle_replay["timestamp"] = "1700000000"
-        decoded_battle_replay["journal"]["metadata"]["saveTime"] = (
-            "2023-11-15T06:13:20Z"
-        )
+        decoded_battle_replay["journal"]["metadata"]["saveTime"] = "2023-11-15T06:13:20Z"
 
     if char_config in list(replay_data["saved"].keys()):
-        replay_data["saved"][char_config].update(
-            {replay_data["current"]: decoded_battle_replay}
-        )
+        replay_data["saved"][char_config].update({replay_data["current"]: decoded_battle_replay})
     else:
-        replay_data["saved"].update(
-            {char_config: {replay_data["current"]: decoded_battle_replay}}
-        )
+        replay_data["saved"].update({char_config: {replay_data["current"]: decoded_battle_replay}})
     replay_data["current"] = None
     write_json(replay_data, BATTLE_REPLAY_JSON_PATH)
 
@@ -140,9 +132,7 @@ def questGetBattleReplay():
 
     replay_data = read_json(BATTLE_REPLAY_JSON_PATH)
 
-    decoded_battle_replay = replay_data["saved"][replay_data["currentCharConfig"]][
-        stageId
-    ]
+    decoded_battle_replay = replay_data["saved"][replay_data["currentCharConfig"]][stageId]
     encoded_battle_replay = encode_battle_replay(decoded_battle_replay)
 
     battleData = {
@@ -158,15 +148,11 @@ def questChangeSquadName():
     data = {"playerDataDelta": {"modified": {"troop": {"squads": {}}}, "deleted": {}}}
 
     if request_data["squadId"] and request_data["name"]:
-        data["playerDataDelta"]["modified"]["troop"]["squads"].update(
-            {str(request_data["squadId"]): {"name": request_data["name"]}}
-        )
+        data["playerDataDelta"]["modified"]["troop"]["squads"].update({str(request_data["squadId"]): {"name": request_data["name"]}})
 
         squad_data = read_json(SQUADS_PATH)
         saved_data = read_json(USER_JSON_PATH)
-        saved_data["user"]["troop"]["squads"][str(request_data["squadId"])]["name"] = (
-            request_data["name"]
-        )
+        saved_data["user"]["troop"]["squads"][str(request_data["squadId"])]["name"] = request_data["name"]
         squad_data[str(request_data["squadId"])]["name"] = request_data["name"]
         write_json(saved_data, USER_JSON_PATH)
         write_json(squad_data, SQUADS_PATH)
@@ -179,14 +165,10 @@ def questSquadFormation():
     data = {"playerDataDelta": {"modified": {"troop": {"squads": {}}}, "deleted": {}}}
 
     if request_data["squadId"] and request_data["slots"]:
-        data["playerDataDelta"]["modified"]["troop"]["squads"].update(
-            {str(request_data["squadId"]): {"slots": request_data["slots"]}}
-        )
+        data["playerDataDelta"]["modified"]["troop"]["squads"].update({str(request_data["squadId"]): {"slots": request_data["slots"]}})
 
         saved_data = read_json(USER_JSON_PATH)
-        saved_data["user"]["troop"]["squads"][str(request_data["squadId"])]["slots"] = (
-            request_data["slots"]
-        )
+        saved_data["user"]["troop"]["squads"][str(request_data["squadId"])]["slots"] = request_data["slots"]
         write_json(saved_data, USER_JSON_PATH)
 
     return data
@@ -214,9 +196,7 @@ def questGetAssistList():
                         "potentialRank": char["potentialRank"],
                         "level": char["level"],
                         "crisisRecord": {},
-                        "currentEquip": assist_unit_config["currentEquip"]
-                        if assist_unit_config["currentEquip"] in char["equip"]
-                        else None,
+                        "currentEquip": assist_unit_config["currentEquip"] if assist_unit_config["currentEquip"] in char["equip"] else None,
                         "equip": char["equip"],
                     }
                 )
@@ -322,9 +302,7 @@ def relicSelect():
     relicId = request_data["relicId"]
     data = {
         "playerDataDelta": {
-            "modified": {
-                "activity": {"BOSS_RUSH": {activityId: {"relic": {"select": relicId}}}}
-            },
+            "modified": {"activity": {"BOSS_RUSH": {activityId: {"relic": {"select": relicId}}}}},
             "deleted": {},
         }
     }
@@ -337,9 +315,7 @@ def setTrapSquad():
     trapSquad = request_data["trapSquad"]
     data = {
         "playerDataDelta": {
-            "modified": {
-                "templateTrap": {"domains": {trapDomainId: {"squad": trapSquad}}}
-            },
+            "modified": {"templateTrap": {"domains": {trapDomainId: {"squad": trapSquad}}}},
             "deleted": {},
         }
     }

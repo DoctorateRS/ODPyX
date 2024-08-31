@@ -38,10 +38,7 @@ def buildingSync():
     updateBuildingCharInstIdList(building_data)
     building_table = update_data(BUILDING_TABLE_URL)
 
-    furniture = {
-        i: {"count": 9999, "inUse": 0}
-        for i in building_table["customData"]["furnitures"]
-    }
+    furniture = {i: {"count": 9999, "inUse": 0} for i in building_table["customData"]["furnitures"]}
 
     building_data["furniture"] = furniture
     write_json(building_data, BUILDING_JSON_PATH)

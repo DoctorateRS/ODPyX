@@ -27,7 +27,7 @@ from .server import (
     gacha,
 )
 
-from .server.util import read_json
+from .server.util.json import read_json
 from .const import CONFIG_PATH
 
 app = Flask(__name__)
@@ -214,11 +214,9 @@ app.add_url_rule(
     methods=["GET"],
     view_func=prod.prodRemoteConfig,
 )
-
 app.add_url_rule("/crisis/getInfo", methods=["POST"], view_func=crisis.crisisGetCrisisInfo)
 app.add_url_rule("/crisis/battleStart", methods=["POST"], view_func=crisis.crisisBattleStart)
 app.add_url_rule("/crisis/battleFinish", methods=["POST"], view_func=crisis.crisisBattleFinish)
-
 app.add_url_rule("/crisisV2/getInfo", methods=["POST"], view_func=crisis.crisisV2_getInfo)
 app.add_url_rule("/crisisV2/battleStart", methods=["POST"], view_func=crisis.crisisV2_battleStart)
 app.add_url_rule("/crisisV2/battleFinish", methods=["POST"], view_func=crisis.crisisV2_battleFinish)
@@ -302,7 +300,6 @@ app.add_url_rule(
 )
 
 app.add_url_rule("/activity/bossRush/relicSelect", methods=["POST"], view_func=quest.relicSelect)
-
 app.add_url_rule(
     "/retro/typeAct20side/competitionStart",
     methods=["POST"],
@@ -313,7 +310,6 @@ app.add_url_rule(
     methods=["POST"],
     view_func=quest.typeAct20side_competitionFinish,
 )
-
 app.add_url_rule("/rlv2/giveUpGame", methods=["POST"], view_func=rlv2.rlv2GiveUpGame)
 app.add_url_rule("/rlv2/createGame", methods=["POST"], view_func=rlv2.rlv2CreateGame)
 app.add_url_rule("/rlv2/chooseInitialRelic", methods=["POST"], view_func=rlv2.rlv2ChooseInitialRelic)
@@ -338,12 +334,9 @@ app.add_url_rule("/rlv2/moveTo", methods=["POST"], view_func=rlv2.rlv2MoveTo)
 app.add_url_rule("/rlv2/buyGoods", methods=["POST"], view_func=rlv2.rlv2BuyGoods)
 app.add_url_rule("/rlv2/leaveShop", methods=["POST"], view_func=rlv2.rlv2LeaveShop)
 app.add_url_rule("/rlv2/chooseBattleReward", methods=["POST"], view_func=rlv2.rlv2ChooseBattleReward)
-
 app.add_url_rule("/shop/getSkinGoodList", methods=["POST"], view_func=shop.shopGetSkinGoodList)
-
 app.add_url_rule("/story/finishStory", methods=["POST"], view_func=story.storyFinishStory)
 app.add_url_rule("/quest/finishStoryStage", methods=["POST"], view_func=story.storyFinishStory)
-
 app.add_url_rule("/user/auth", methods=["POST"], view_func=user.userAuth)
 app.add_url_rule("/user/agreement", methods=["GET"], view_func=user.userAgreement)
 app.add_url_rule("/user/checkIn", methods=["POST"], view_func=user.userCheckIn)
@@ -358,7 +351,6 @@ app.add_url_rule(
 )
 app.add_url_rule("/user/yostar_createlogin", methods=["POST"], view_func=user.userYostarCreatelogin)
 app.add_url_rule("/u8/user/v1/getToken", methods=["POST"], view_func=user.userV1getToken)
-
 app.add_url_rule("/user/changeResume", methods=["POST"], view_func=user.user_changeResume)
 app.add_url_rule("/social/getSortListInfo", methods=["POST"], view_func=user.social_getSortListInfo)
 app.add_url_rule("/social/searchPlayer", methods=["POST"], view_func=user.social_searchPlayer)
@@ -369,7 +361,6 @@ app.add_url_rule(
 )
 app.add_url_rule("/social/setCardShowMedal", methods=["POST"], view_func=user.social_setCardShowMedal)
 app.add_url_rule("/medal/setCustomData", methods=["POST"], view_func=user.medal_setCustomData)
-
 app.add_url_rule(
     "/businessCard/changeNameCardComponent",
     methods=["POST"],
@@ -380,7 +371,6 @@ app.add_url_rule(
     methods=["POST"],
     view_func=user.businessCard_changeNameCardSkin,
 )
-
 app.add_url_rule("/sandboxPerm/sandboxV2/createGame", methods=["POST"], view_func=sandbox.createGame)
 app.add_url_rule(
     "/sandboxPerm/sandboxV2/battleStart",
@@ -415,7 +405,6 @@ app.add_url_rule(
     methods=["POST"],
     view_func=sandbox.monthBattleFinish,
 )
-
 app.add_url_rule("/gacha/normalGacha", methods=["POST"], view_func=gacha.normalGacha)
 app.add_url_rule("/gacha/boostNormalGacha", methods=["POST"], view_func=gacha.boostNormalGacha)
 app.add_url_rule("/gacha/finishNormalGacha", methods=["POST"], view_func=gacha.finishNormalGacha)
@@ -423,7 +412,6 @@ app.add_url_rule("/gacha/syncNormalGacha", methods=["POST"], view_func=gacha.syn
 app.add_url_rule("/gacha/getPoolDetail", methods=["POST"], view_func=gacha.getPoolDetail)
 app.add_url_rule("/gacha/advancedGacha", methods=["POST"], view_func=gacha.advancedGacha)
 app.add_url_rule("/gacha/tenAdvancedGacha", methods=["POST"], view_func=gacha.tenAdvancedGacha)
-
 app.add_url_rule(
     "/user/auth/v1/token_by_phone_password",
     methods=["POST"],
@@ -433,7 +421,6 @@ app.add_url_rule("/user/info/v1/basic", methods=["GET"], view_func=user.info_v1_
 app.add_url_rule("/user/oauth2/v2/grant", methods=["POST"], view_func=user.oauth2_v2_grant)
 app.add_url_rule("/app/v1/config", methods=["GET"], view_func=user.app_v1_config)
 app.add_url_rule("/general/v1/server_time", methods=["GET"], view_func=user.general_v1_server_time)
-
 app.add_url_rule(
     "/u8/user/auth/v1/agreement_version",
     methods=["GET"],
@@ -442,5 +429,10 @@ app.add_url_rule(
 
 
 @app.errorhandler(404)
-def fallback(_) -> Any:
+def fallback(_) -> dict[str, dict[str, Any]]:
     return {"playerDataDelta": {"modified": {}, "deleted": {}}}
+
+if __name__ == '__main__':
+    cfg = read_json(CONFIG_PATH)
+
+    app.run()

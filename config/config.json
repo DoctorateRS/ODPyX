@@ -1,0 +1,137 @@
+{
+    "server": {
+        "host": "127.0.0.1",
+        "port": 8443,
+        "enableServer": true,
+        "maintenanceMsg": "Server is currently under maintenance!",
+        "mode": "cn",
+        "adaptive": true,
+        "noProxy": false,
+        "gadget": false,
+        "useSu": false,
+        "forceUpdateExcel": false
+    },
+    "assets": {
+        "autoUpdate": false,
+        "downloadLocally": true,
+        "enableMods": false,
+        "skipModCacheValidation": false
+    },
+    "version": {
+        "android": {
+            "resVersion": "24-08-20-17-10-23-6de62c",
+            "clientVersion": "2.3.21"
+        }
+    },
+    "versionGlobal": {
+        "android": {
+            "resVersion": "24-04-26-14-20-27-ffbadc",
+            "clientVersion": "22.1.21"
+        }
+    },
+    "remote": {},
+    "networkConfig": {
+        "cn": {
+            "sign": "sign",
+            "content": {
+                "configVer": "5",
+                "funcVer": "V053",
+                "configs": {
+                    "V053": {
+                        "override": true,
+                        "network": {
+                            "gs": "{server}",
+                            "as": "{server}",
+                            "u8": "{server}/u8",
+                            "hu": "{server}/assetbundle/official",
+                            "hv": "{server}/config/prod/official/{0}/version",
+                            "rc": "{server}/config/prod/official/remote_config",
+                            "an": "{server}/config/prod/announce_meta/{0}/announcement.meta.json",
+                            "prean": "{server}/config/prod/announce_meta/{0}/preannouncement.meta.json",
+                            "sl": "https://ak.hypergryph.com/protocol/service",
+                            "of": "https://ak.hypergryph.com/index.html",
+                            "pkgAd": null,
+                            "pkgIOS": null,
+                            "secure": false
+                        }
+                    }
+                }
+            }
+        },
+        "global": {
+            "sign": "sign",
+            "content": {
+                "configVer": "1",
+                "funcVer": "V044",
+                "configs": {
+                    "V044": {
+                        "override": true,
+                        "network": {
+                            "gs": "{server}",
+                            "as": "{server}",
+                            "u8": "{server}/u8",
+                            "hu": "{server}/assetbundle/official",
+                            "hv": "{server}/config/prod/official/{0}/version",
+                            "rc": "{server}/config/prod/official/remote_config",
+                            "an": "{server}/config/prod/announce_meta/{0}/announcement.meta.json",
+                            "prean": "{server}/config/prod/announce_meta/{0}/preannouncement.meta.json",
+                            "sl": "https://www.arknights.global/terms_of_service",
+                            "of": "https://www.arknights.global",
+                            "pkgAd": null,
+                            "pkgIOS": null,
+                            "secure": false
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "crisisConfig": {
+        "selectedCrisis": "cc12"
+    },
+    "crisisV2Config": {
+        "selectedCrisis": "cc2"
+    },
+    "towerConfig": {
+        "season": "tower_season_5"
+    },
+    "rlv2Config": {
+        "allChars": true
+    },
+    "battleReplayConfig": {
+        "anonymous": true
+    },
+    "userConfig": {
+        "restorePreviousStates": {
+            "is2": false,
+            "squadsAndFavs": false,
+            "ui": false
+        },
+        "activityMinStartTs": 1723708800,
+        "activityMaxStartTs": 1725739199,
+        "secretary": "char_4058_pepe",
+        "secretarySkinId": "char_4058_pepe#2",
+        "background": "bg_sanrio_1",
+        "theme": "tm_rainbowsix_1",
+        "fakeTime": -1,
+        "vision": true,
+        "nickName": "Terra",
+        "nickNumber": "1111",
+        "forceEnableBattleReplay": false
+    },
+    "charConfig": {
+        "favorPoint": 25570,
+        "potentialRank": 5,
+        "mainSkillLvl": 7,
+        "level": -1,
+        "evolvePhase": -1,
+        "skillsSpecializeLevel": 3,
+        "duplicateUnits": []
+    },
+    "gacha": {
+        "5rarity": 1.0,
+        "4rarity": 0,
+        "3rarity": 0,
+        "2rarity": 0
+    }
+}

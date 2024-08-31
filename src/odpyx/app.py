@@ -435,4 +435,6 @@ def fallback(_) -> dict[str, dict[str, Any]]:
 if __name__ == '__main__':
     cfg = read_json(CONFIG_PATH)
 
-    app.run()
+    host = cfg["server"]["host"]
+    port = cfg["server"]["port"]
+    app.run(host=host, port=port, debug=True)
